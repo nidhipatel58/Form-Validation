@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+    <link rel="stylesheet" href="css/fonts.css">
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+    <div class="container">
+        <h1 style="text-align: center;">Log In </h1>
+        <form id="loginForm" action="#" onsubmit="return false;">
+            <div class="form">
+                <label for="username">Username:</label>
+                <input type="text" name="username" id="username" placeholder="Enter your username:)" />
+                <p id="nameerror"></p>
+            </div>
+            <div class="form">
+                <label for="email">Email Address:</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email:)" />
+                <p id="emailerror"></p>
+            </div>
+            <div class="form">
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password" placeholder="Enter your password:)"
+                    autocomplete="off" />
+                <p id="passworderror"></p>
+            </div>
+            <div class="form">
+                <label for="confirm-password">Confirm Password:</label>
+                <input type="password" id="confirm-password" placeholder="Confirm your Password Here:)" />
+                <p id="C_passerror"></p>
+            </div>
+            <button onclick="submitForm()">Submit</button>
+        </form>
+    </div>
+    <script>
+        function submitForm() {
+            let username = document.getElementById("username").value;
+            let email = document.getElementById("email").value;
+            let password = document.getElementById("password").value;
+            let c_password = document.getElementById("confirm-password").value;
+
+
+            if (username === "") {
+                document.getElementById("nameerror").innerHTML = "Please enter your username...";
+                nameerror.style.color = "red";
+            }
+
+            if (email === "") {
+                document.getElementById("emailerror").innerHTML = "Please enter your email...";
+                emailerror.style.color = "red";
+            } else if (!email.includes("@")) {
+                document.getElementById("emailerror").innerHTML = "Email must contain '@' Include it in your email..";
+                emailerror.style.color = "red";
+            }
+
+            if (password === "") {
+                document.getElementById("passworderror").innerHTML = " Please enter your password...";
+                passworderror.style.color = "red";
+            }
+            else if (password.length < 8 || password.length > 16) {
+                document.getElementById("passworderror").innerHTML = "Password must contain 8 to 16 characters";
+                passworderror.style.color = "red";
+            }
+            else if (!containsUppercase(password) || !containsLowercase(password) || !containsDigit(password) || !containsSpecialCharacter(password)) {
+                document.getElementById("passworderror").innerHTML = "Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character";
+                passworderror.style.color = "red";
+            }
+
+            if (c_password !== password) {
+                document.getElementById("C_passerror").innerHTML = "Password and confirm password should be the same";
+                C_passerror.style.color = "red";
+            }
+
+            if (username !== "" && email !== "" && email.includes("@") && password !== "" && c_password === password) {
+                window.location.href = "success.html";
+            }
+        }
+
+        function containsUppercase(password) {
+            return /[A-Z]/.test(password);
+        }
+
+        function containsLowercase(password) {
+            return /[a-z]/.test(password);
+        }
+
+        function containsDigit(password) {
+            return /\d/.test(password);
+        }
+
+        function containsSpecialCharacter(password) {
+            return /[!@#$%^&*()_+]/.test(password);
+        }
+    </script>
+</body>
+
+</html>
